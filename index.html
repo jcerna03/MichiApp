@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A First App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <label for="michi"
+          >{{michi === '' || status === 'Complete' ? 'Michi' : michi }} -
+          <a :href="link" target="_blank">Dynamic Link</a></label
+        >
+        <input type="text" id="michi" v-model="michi" @keyup.enter="addMichi" />
+        <button @click="addMichi" v-if="status!== 'Complete'">Add Michi</button>
+      </div>
+      <ul>
+        <li
+          v-for="(michi, idx) in michis"
+          :key="michi"
+          ref="element"
+          @click="selectMichi(idx)"
+        >
+          {{ idx + 1 + ' - ' + michi.name }}
+          <strong
+            style="float: right; cursor: pointer"
+            @click.stop="removeMichi(idx)"
+          >
+            X</strong
+          >
+          <br>
+          <button @click.stop="toggle">Toggle Id</button>
+          <label v-if="idVisible">id: {{ michi.id }}</label>
+        </li>
+      </ul>
+      <p :class="styleStatus">{{ status }}</p>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
